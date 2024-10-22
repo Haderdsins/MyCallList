@@ -19,22 +19,22 @@ import com.example.mycalllist.utils.ContactsViewModel
 
 
 class MainActivity : ComponentActivity() {
-    // ViewModel для хранения и управления состоянием контактов
+    // viewModel для хранения и управления состоянием контактов
     private val contactsViewModel: ContactsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Проверяем наличие разрешения на чтение контактов
+        // проверяем наличие разрешения на чтение контактов
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.READ_CONTACTS
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            // Разрешение уже есть, загружаем контакты
+            // разрешение уже есть, загружаем контакты
             loadContacts()
         } else {
-            // Запрашиваем разрешение на чтение контактов
+            // запрашиваем разрешение на чтение контактов
             requestPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
         }
 
@@ -50,17 +50,17 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    // Лямбда для обработки результата запроса разрешения
+    // лямбда для обработки результата запроса разрешения
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
                 loadContacts()
             } else {
-                // Разрешение не было предоставлено, можно показать сообщение
+                // разрешение не было предоставлено, можно показать сообщение
             }
         }
 
-    // Загружаем контакты с использованием ViewModel
+    // загружаем контакты с использованием ViewModel
     private fun loadContacts() {
         val contacts = fetchAllContacts()
         contactsViewModel.updateContacts(contacts)

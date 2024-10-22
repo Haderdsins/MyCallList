@@ -14,16 +14,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mycalllist.utils.Contact
-import com.example.mycalllist.ui.theme.MyCallListTheme
+
 
 @Composable
 fun ContactList(contacts: List<Contact>, modifier: Modifier = Modifier) {
@@ -37,7 +35,7 @@ private fun contactExists(context: Context, contactId: String): Boolean {
     val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, contactId)
     val cursor = context.contentResolver.query(uri, null, null, null, null)
     val exists = cursor != null && cursor.count > 0
-    cursor?.close() // Закрываем курсор после проверки
+    cursor?.close() // закрываем курсор после проверки
     return exists
 }
 @Composable
@@ -62,12 +60,12 @@ fun ContactCard(contact: Contact, context: Context) {
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Иконка контакта
+            // иконка контакта
             ContactIcon(painterResource(id = R.drawable.ion)) // Поставьте здесь свою иконку
 
             Spacer(modifier = Modifier.width(16.dp))
 
-            // Информация о контакте
+            // информация о контакте
             Column {
                 Text(
                     text = contact.name,
