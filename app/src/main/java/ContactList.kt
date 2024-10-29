@@ -27,7 +27,7 @@ import com.example.mycalllist.utils.Contact
 fun ContactList(contacts: List<Contact>, modifier: Modifier = Modifier) {
     LazyColumn(modifier = modifier.fillMaxSize().padding(16.dp)) {
         items(contacts) { contact ->
-            ContactCard(contact = contact, context = LocalContext.current) // Передаем контекст здесь
+            ContactCard(contact = contact, context = LocalContext.current)
         }
     }
 }
@@ -35,7 +35,7 @@ private fun contactExists(context: Context, contactId: String): Boolean {
     val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, contactId)
     val cursor = context.contentResolver.query(uri, null, null, null, null)
     val exists = cursor != null && cursor.count > 0
-    cursor?.close() // закрываем курсор после проверки
+    cursor?.close()
     return exists
 }
 @Composable
@@ -47,10 +47,8 @@ fun ContactCard(contact: Contact, context: Context) {
             .fillMaxWidth()
             .padding(vertical = 8.dp)
             .clickable {
-                if (contactExists(context, contact.contactId)) { // Проверяем существование контакта
+                if (contactExists(context, contact.contactId)) {
                     openContact(context, contact.contactId)
-                } else {
-                    // Здесь можно добавить уведомление о том, что контакт не существует
                 }
             }
     ) {
@@ -61,7 +59,7 @@ fun ContactCard(contact: Contact, context: Context) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             // иконка контакта
-            ContactIcon(painterResource(id = R.drawable.ion)) // Поставьте здесь свою иконку
+            ContactIcon(painterResource(id = R.drawable.ion))
 
             Spacer(modifier = Modifier.width(16.dp))
 
